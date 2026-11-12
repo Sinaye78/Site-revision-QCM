@@ -1,0 +1,69 @@
+/* ---------------- Contrôles (lot 3) ---------------- */
+
+/* Préparer un contrôle */
+.types-questions { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; margin: 6px 0 4px; }
+.type-question { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border: 2px solid var(--carreau); border-radius: var(--bord-main); background: var(--blanc); cursor: pointer; }
+.type-question:has(input:checked) { border-color: var(--encre); background: var(--fluo); }
+.type-question input { margin-top: 6px; accent-color: var(--encre); width: 18px; height: 18px; }
+.type-question > span { display: flex; flex-direction: column; line-height: 1.25; }
+
+/* Avant de commencer */
+.depart-controle { max-width: 640px; margin: 18px auto; transform: rotate(-0.4deg); }
+.consignes-controle { padding-left: 22px; margin: 0 0 18px; }
+.consignes-controle li { margin-bottom: 6px; }
+.consignes-controle li::marker { color: var(--stylo-rouge); }
+.copies-precedentes { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0 10px; }
+.lien-copie { text-decoration: none; }
+.lien-copie:hover { background: var(--fluo); }
+
+/* La feuille : barre du minuteur, questions avec barème dans la marge */
+.barre-controle { position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 6px 0 18px; padding: 8px 14px; background: var(--papier); border: 2px solid var(--encre); border-radius: 10px; box-shadow: 3px 3px 0 var(--ombre); }
+.minuteur { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-stylo), cursive; font-weight: 700; font-size: 28px; line-height: 1; }
+.minuteur.presque-fini { color: var(--stylo-rouge); animation: pulse 1s ease-in-out infinite; }
+.questions-controle { list-style: none; counter-reset: question; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 22px; }
+.question-controle { position: relative; counter-increment: question; padding: 6px 0 12px; border-bottom: 1px dashed var(--carreau); }
+.question-controle::before { content: counter(question) "."; position: absolute; left: -36px; top: 6px; font-family: var(--font-stylo), cursive; font-weight: 700; font-size: 26px; color: var(--stylo-rouge); }
+.bareme { position: absolute; right: 0; top: 4px; font-family: var(--font-stylo), cursive; font-size: 22px; color: var(--encre-douce); }
+.enonce-controle { font-size: 23px; line-height: 1.35; margin: 0 70px 10px 0; }
+.choix-controle { display: flex; flex-direction: column; gap: 4px; }
+.lettre-petite { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border: 1.5px solid var(--encre); border-radius: 50%; font-size: 15px; flex-shrink: 0; }
+.texte-trous { font-size: 21px; line-height: 2.1; margin: 0 70px 0 0; }
+.consigne-trous { margin: 0; }
+.trou { font: inherit; font-size: 20px; width: 9em; max-width: 60vw; padding: 0 6px; margin: 0 4px; border: none; border-bottom: 2px solid var(--encre); background: var(--survol); color: var(--stylo-vert); text-align: center; border-radius: 4px 4px 0 0; }
+.trou:focus { outline: 2px solid var(--fluo); }
+.reponse-redigee { font-family: var(--font-ecriture), cursive; font-size: 21px; line-height: 1.6; min-height: 0; background-image: repeating-linear-gradient(transparent 0 32.5px, var(--carreau) 32.5px 34px); }
+textarea.champ.reponse-redigee { min-height: 0; }
+
+/* Copie corrigée */
+.attente-correction { margin: 18px 0; transform: rotate(-0.4deg); }
+.note-marge { font-weight: 700; font-size: 26px; color: var(--stylo-rouge); transform: rotate(-4deg); }
+.note-marge.plein { color: var(--stylo-vert); }
+.annotation { font-family: var(--font-stylo), cursive; font-size: 25px; line-height: 1.2; color: var(--stylo-rouge); margin: 10px 0 4px; transform: rotate(-0.6deg); }
+.reponse-eleve { white-space: pre-wrap; font-size: 20px; line-height: 1.55; padding: 8px 12px; border-left: 3px solid var(--encre-douce); background: var(--carte-fond); }
+.elements-attendus { list-style: none; padding: 0; margin: 10px 0 4px; display: flex; flex-direction: column; gap: 2px; font-size: 17px; }
+.elements-attendus li { display: flex; gap: 6px; align-items: baseline; }
+.elements-attendus .trouve { color: var(--stylo-vert); }
+.elements-attendus .manque { color: var(--stylo-rouge); }
+.choix-corriges { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+.choix-corriges li { display: flex; gap: 8px; align-items: center; padding: 2px 8px; border-radius: 8px; }
+.choix-corriges .bonne { outline: 2px solid var(--stylo-vert); }
+.choix-corriges .fausse { text-decoration: line-through; text-decoration-color: var(--stylo-rouge); color: var(--encre-douce); }
+.trou-juste { color: var(--stylo-vert); border-bottom: 2px solid var(--stylo-vert); padding: 0 4px; }
+.trou-faux { color: var(--stylo-rouge); text-decoration: line-through; padding: 0 2px; }
+.trou-correction { font-family: var(--font-stylo), cursive; font-weight: 700; font-size: 1.15em; color: var(--stylo-rouge); border-bottom: 2px solid var(--stylo-rouge); padding: 0 4px; }
+.corrige-par { position: absolute; right: 0; bottom: 4px; font-size: 13px; }
+
+@media (max-width: 640px) {
+  .question-controle::before { left: -30px; font-size: 22px; }
+  .enonce-controle { font-size: 20px; margin-right: 52px; }
+  .texte-trous { font-size: 18px; margin-right: 0; }
+  .bareme { font-size: 18px; }
+  .minuteur { font-size: 24px; }
+}
+
+/* Version papier du contrôle */
+.sujet-points { font-weight: 400; color: #555; }
+.lignes-ecriture { margin-top: 6px; background-image: repeating-linear-gradient(transparent 0 27px, #999 27px 28px); }
+.lignes-courte { height: 60px; }
+.lignes-redigee { height: 196px; }
+.elements-papier { margin: 4px 0 0; padding-left: 18px; color: #333; }

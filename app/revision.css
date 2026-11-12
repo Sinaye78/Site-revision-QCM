@@ -1,0 +1,141 @@
+/* ---------------- Révision, cartes mémoire, accueil, menu (lot 1) ---------------- */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+/* Bouton qui ressemble à un lien (actions secondaires). */
+.lien-bouton { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; text-decoration: underline; text-decoration-style: wavy; text-decoration-color: var(--stylo-rouge); text-underline-offset: 4px; display: inline-flex; align-items: center; gap: 4px; }
+.lien-bouton:focus-visible { outline: 3px solid var(--fluo); outline-offset: 2px; }
+
+/* Aide clavier sur ordinateur, aide tactile sur téléphone. */
+.aide-tactile { display: none; }
+@media (hover: none), (pointer: coarse) {
+  .aide-clavier { display: none; }
+  .aide-tactile { display: inline; }
+}
+
+/* QCM : reprise, signalement, correction détaillée */
+.bandeau-reprise { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin: 12px 0 0; padding: 8px 14px; border: 2px dashed var(--encre); border-radius: 10px; background: var(--carte-fond); font-size: 18px; }
+.signalement { margin-top: 12px; padding-top: 8px; border-top: 1px dashed rgba(34, 49, 79, 0.25); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; color: var(--encre-douce); }
+.recap-contenu { flex: 1; min-width: 0; }
+.recap-details { margin-top: 2px; }
+.recap-details summary { cursor: pointer; color: var(--encre-douce); width: fit-content; }
+.recap-details p { margin: 6px 0; }
+.extrait-recap { display: flex; gap: 6px; font-style: italic; color: var(--encre-douce); }
+.recap-signalee .recap-contenu > div:first-child { text-decoration: line-through; text-decoration-color: var(--encre-douce); }
+
+/* En-tête : compteur, point « en cours », menu */
+.lien-reviser { position: relative; }
+.pastille-compte { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: var(--stylo-rouge); color: #fff; font-size: 14px; line-height: 1; }
+.point-en-cours { width: 10px; height: 10px; border-radius: 50%; background: var(--stylo-vert); animation: pulse 1.4s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.75); } }
+.menu-compte { position: relative; }
+.menu-compte summary { list-style: none; }
+.menu-compte summary::-webkit-details-marker { display: none; }
+.menu-compte .profil-image, .menu-compte .profil-initiale { width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--encre); object-fit: cover; background: var(--fluo); display: inline-flex; align-items: center; justify-content: center; font-size: 17px; }
+.menu-compte-contenu { position: absolute; right: 0; top: calc(100% + 8px); z-index: 40; min-width: 230px; padding: 8px; background: var(--papier); border: 2px solid var(--encre); border-radius: 12px; box-shadow: 4px 4px 0 var(--ombre); display: flex; flex-direction: column; gap: 2px; animation: ouvre 0.15s ease-out; }
+.menu-compte-contenu form { margin: 0; }
+.menu-compte-nom { margin: 2px 8px 8px; padding-bottom: 8px; border-bottom: 2px dashed var(--carreau); display: flex; flex-direction: column; line-height: 1.2; overflow-wrap: anywhere; }
+.menu-lien { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 10px; font: inherit; font-size: 18px; color: var(--encre); background: none; border: none; border-radius: 8px; text-decoration: none; cursor: pointer; text-align: left; }
+.menu-lien:hover, .menu-lien:focus-visible { background: var(--survol); outline: none; }
+
+/* Avis « c'est prêt » en bas de l'écran */
+.avis-taches { position: fixed; right: 16px; bottom: 16px; z-index: 60; display: flex; flex-direction: column; gap: 12px; max-width: min(380px, calc(100vw - 32px)); }
+.avis-tache { margin: 0; display: flex; flex-direction: column; gap: 8px; font-size: 18px; transform: rotate(-1deg); }
+.avis-tache > span:first-child { display: flex; gap: 8px; align-items: flex-start; }
+.avis-tache .avis-actions { display: flex; justify-content: flex-end; gap: 6px; }
+.avis-tache .bouton { font-size: 17px; padding: 3px 12px; }
+.avis-erreur > span:first-child { color: var(--stylo-rouge); }
+
+/* Choix du mode d'IA, replié */
+.modes-ia-resume { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.modes-ia .modes-ia-choix { margin-top: 12px; }
+.mode-ia-indisponible { opacity: 0.55; cursor: not-allowed; }
+.avertissement { display: flex; gap: 8px; align-items: flex-start; margin: 10px 0 0; padding: 8px 12px; background: var(--postit); border-left: 4px solid var(--stylo-rouge); }
+
+/* Cartes mémoire */
+.paquet { max-width: 640px; margin: 10px auto 0; }
+.paquet-barre { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.paquet-barre .bouton { font-size: 17px; }
+.paquet-progression { display: block; width: 100%; height: 12px; margin: 6px 0 18px; accent-color: var(--stylo-vert); }
+.carte-memoire { display: grid; width: 100%; min-height: 280px; padding: 0; font: inherit; color: var(--encre); background: none; border: none; cursor: pointer; perspective: 1200px; }
+.carte-memoire:focus-visible { outline: 3px solid var(--fluo); outline-offset: 6px; border-radius: 14px; }
+.carte-face {
+  grid-area: 1 / 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  padding: 28px 24px; text-align: center;
+  background-color: var(--blanc);
+  background-image: repeating-linear-gradient(transparent 0 31px, var(--carreau) 31px 32.5px);
+  border: 2px solid var(--encre); border-radius: 14px; box-shadow: 5px 5px 0 var(--ombre);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  transition: transform 0.45s cubic-bezier(0.3, 1.3, 0.5, 1);
+}
+.carte-recto { transform: rotateY(0deg) rotate(-0.6deg); border-top: 10px solid var(--stylo-rouge); }
+.carte-verso { transform: rotateY(180deg) rotate(0.6deg); background-color: var(--postit); }
+.carte-memoire.retournee .carte-recto { transform: rotateY(-180deg); }
+.carte-memoire.retournee .carte-verso { transform: rotateY(0deg) rotate(0.6deg); }
+.carte-consigne { font-size: 18px; color: var(--encre-douce); }
+.carte-texte { font-size: 30px; line-height: 1.3; overflow-wrap: anywhere; }
+.carte-verso .carte-texte { font-size: 23px; font-family: var(--police-lecture); }
+.carte-verso .carte-texte.carte-formule { font-family: ui-monospace, monospace; }
+.carte-aide { display: inline-flex; gap: 6px; align-items: center; }
+.reponse-carte.a-revoir { border-color: var(--stylo-rouge); color: var(--stylo-rouge); box-shadow: 3px 3px 0 var(--stylo-rouge); }
+
+/* Accueil */
+.accueil-reviser { margin: 8px 0 26px; transform: rotate(-0.5deg); }
+.accueil-debut { text-align: center; max-width: 620px; margin: 10px auto; }
+.etapes-debut { text-align: left; width: fit-content; margin: 8px auto 18px; padding-left: 28px; }
+.etapes-debut li::marker { color: var(--stylo-rouge); font-family: var(--font-stylo), cursive; font-weight: 700; }
+.tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-bottom: 30px; }
+.tuile { display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; padding: 16px 12px; text-decoration: none; }
+.tuile svg { color: var(--stylo-rouge); }
+.tuile-valeur { font-family: var(--font-stylo), cursive; font-weight: 700; font-size: 46px; line-height: 1; }
+.tuile-valeur small { font-size: 26px; color: var(--encre-douce); }
+.tuile-libelle { font-size: 17px; color: var(--encre-douce); }
+.tuile-lien { transition: transform 120ms ease; }
+.tuile-lien:hover { transform: rotate(-1deg) translateY(-2px); }
+.accueil-colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px 36px; }
+.titre-section { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.titre-section h2 { font-size: 26px; }
+.liste-courte { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.liste-courte a { display: flex; align-items: center; gap: 10px; padding: 6px 10px; text-decoration: none; border: 2px solid transparent; border-radius: var(--bord-main); }
+.liste-courte a:hover { border-color: var(--encre); background: var(--blanc); }
+.liste-courte-titre { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.petite-note { font-size: 24px; min-width: 60px; }
+.matieres { list-style: none; margin: 0 0 6px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.matieres li { display: grid; grid-template-columns: minmax(90px, 160px) 1fr auto; gap: 12px; align-items: center; }
+.matiere-nom { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.matiere-jauge { height: 16px; border: 2px solid var(--encre); border-radius: 8px 4px 9px 5px; background: var(--blanc); overflow: hidden; }
+.matiere-jauge span { display: block; height: 100%; }
+.matiere-jauge .bon { background: var(--stylo-vert); }
+.matiere-jauge .moyen { background: #e0a43a; }
+.matiere-jauge .faible { background: var(--stylo-rouge); }
+.matiere-note { font-family: var(--font-stylo), cursive; font-size: 24px; white-space: nowrap; }
+
+@media (max-width: 640px) {
+  .carte-texte { font-size: 25px; }
+  .carte-memoire { min-height: 240px; }
+  .matieres li { grid-template-columns: 1fr auto; }
+  .matiere-jauge { grid-column: 1 / -1; grid-row: 2; }
+  .tuiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .tuile { padding: 10px 4px; }
+  .tuile-valeur { font-size: 34px; }
+  .tuile-libelle { font-size: 14px; }
+  .pastille-compte { position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; font-size: 12px; padding: 0 4px; }
+  .menu-compte-contenu { right: -8px; }
+}
+:root[data-theme="sombre"] .pastille-compte { color: #1b2230; }
+:root[data-theme="sombre"] .signalement { border-top-color: rgba(255, 255, 255, 0.15); }
+
+/* En-tête sur téléphone : icônes seules, le thème passe dans le menu. */
+.theme-menu { display: none; }
+@media (max-width: 640px) {
+  .entete { gap: 6px; }
+  .entete nav .bouton.fantome { padding: 6px 7px; }
+  .entete .badge-invite { padding: 4px 8px; }
+  .theme-nav { display: none; }
+  .theme-menu { display: flex; }
+}
+
+/* Envoi d'un cours : lien web, photo directe sur téléphone */
+.depot-lien { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 2.5px dashed var(--encre); border-radius: 14px; background: var(--carte-fond); }
+.bouton-photo { display: none; margin-top: 12px; width: 100%; }
+@media (hover: none), (pointer: coarse) { .bouton-photo { display: inline-flex; } }
+.lien-extrait { white-space: nowrap; font-style: normal; color: var(--encre); text-decoration-style: wavy; text-decoration-color: var(--stylo-rouge); }
